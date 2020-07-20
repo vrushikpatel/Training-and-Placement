@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "453756875304",
+    "firebase_url": "https://training--and-placement-cell.firebaseio.com",
+    "project_id": "training--and-placement-cell",
+    "storage_bucket": "training--and-placement-cell.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453756875304:android:76e84c6a8df4db95f37b1d",
+        "android_client_info": {
+          "package_name": "com.vrushiksudhirbhaipatel.trainingandplacement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453756875304-8a5u5pucljqcogolda357s92nbc1lmra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMsDayScl8II3ffm1mVvxKotRi8VNap4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453756875304-8a5u5pucljqcogolda357s92nbc1lmra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
