@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/formate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CompanyForm extends StatefulWidget {
   
@@ -251,7 +252,14 @@ class _CompanyFormState extends State<CompanyForm> {
                                       'Technology': technology,
                                       'ReasonToChooseThisCompany':reason, 
                                     });
-                                print('company detail entered ');
+                                Fluttertoast.showToast(msg: 'Submitted successfully',
+                                   toastLength: Toast.LENGTH_SHORT,
+                                   gravity: ToastGravity.BOTTOM,
+                                   timeInSecForIosWeb: 1,
+                                   backgroundColor: Colors.white12,
+                                   textColor: Colors.white,
+                                   fontSize: 16.0,
+                                 );
                                 Navigator.popAndPushNamed(context, 'StdWelcome');
                             },
                           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/formate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class FacultySignupPage extends StatefulWidget {
   
@@ -11,42 +11,6 @@ class FacultySignupPage extends StatefulWidget {
 }
 
 class _FacultySignupPageState extends State<FacultySignupPage> {
-
-  //alert box
-  Future<void> _showMyDialog( String e,bool flag) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Kindly focus'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(e),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('close'),
-              onPressed: () {
-                if(flag){
-
-                   Navigator.pushNamed(context, 'FacLog');
-                 }
-                else{
-                Navigator.of(context).pop();
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-
 
   String selectedBranch = 'CE';
   String fN;
@@ -234,11 +198,29 @@ class _FacultySignupPageState extends State<FacultySignupPage> {
                                       'Branch': selectedBranch,
                                     });
                                 if (user != null) {
-                                  _showMyDialog('Signed up Successfull',true);
+                                  Fluttertoast.showToast(msg: 'Signed up Successfull',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.white12,
+                                    textColor: Colors.white,
+                                    fontSize: 16.0,
+                                  );
+                                  Navigator.pushNamed(context, 'FacLog');
                                 }
                               }
                               catch(e){
-                                _showMyDialog(e.toString(),false);
+                                var temp=e.toString().split(',');
+                                var error=temp[1].split(',');
+                                print(error[0]);
+                                Fluttertoast.showToast(msg: error[0],
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.white,
+                                  textColor: Colors.red,
+                                  fontSize: 16.0,
+                                );
                               }
                             },
                           ),

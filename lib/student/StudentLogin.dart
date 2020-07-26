@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/formate.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -17,42 +18,43 @@ class StudentLoginPage extends StatefulWidget {
 }
 class _StudentLoginPageState extends State<StudentLoginPage> {
 
-  //alert box
-  Future<void> _showMyDialog( String e,bool flag) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Kidly Focus'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(e),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('close'),
-              onPressed: () {
-                if(flag){
-                  Navigator.popAndPushNamed(context, 'StdWelcome');
-                }
-                else{
-                  Navigator.pop(context);
-                }
-              },
-            ),
-          ],
+  //function for checking student
+  void checkStudent(var email)async{
+    final _firestore=Firestore.instance;
+    bool checke=false;
+    List<String> emailslist=[];
+    final id= await _firestore.collection('SignupStudent').getDocuments();
+    for(var mail in id.documents){
+      emailslist.add(mail.data['Email']);
+    }
+    print(emailslist);
+    for(var ids in emailslist){
+      if(email==ids){
+        checke=true;
+        Fluttertoast.showToast(msg: 'Log In successfull',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.white12,
+          textColor: Colors.white,
+          fontSize: 16.0,
         );
-      },
-    );
+        Navigator.popAndPushNamed(context, 'StdWelcome');// navigation if login successful
+      }
+    }
+    if(!checke){
+      Fluttertoast.showToast(msg: 'You are not authorised in student Log in',
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.white,
+        textColor: Colors.red,
+        fontSize: 16.0,
+      );
+    }
   }
 
-
 //declaration part
-
   final _auth=FirebaseAuth.instance;
   String email;
   String password;
@@ -138,25 +140,27 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             onPressed: ()async {
+
                               try {
                                 final currentUser = await _auth.signInWithEmailAndPassword(
                                     email: email, password: password);
                                 if (currentUser != null) {
-//                                  _showMyDialog('Loged Inn Successfull',true);
-                                Fluttertoast.showToast(msg: 'Logedd Inn successfull',
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: Colors.red,
-                                    textColor: Colors.white,
-                                    fontSize: 16.0,
-                                );
-
+                                  checkStudent(email);
                                 }
                               }
 
                               catch(e){
-                                _showMyDialog(e.toString(),false);
+                                var temp=e.toString().split(',');
+                                var error=temp[1].split(',');
+                                print(error[0]);
+                                Fluttertoast.showToast(msg:error[0] ,
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.white,
+                                  textColor: Colors.red,
+                                  fontSize: 16.0,
+                                );
                               }
                             },
                           ),
