@@ -65,7 +65,7 @@ class _StudentSignupPageState extends State<StudentSignupPage> {
                       Align(
                         alignment: Alignment.topCenter,
                         child: Text(
-                          "Sign Up",
+                          "Student Sign Up",
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 30,

@@ -37,7 +37,7 @@ class FacultyWelcome extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Center(
-                child: Button(txt: 'Panding Request for company verification',
+                child: Button(txt: 'Pending Request for company verification',
                   pressed: (){
                   Navigator.pushNamed(context, 'PendingRequest');
                 },),
@@ -46,7 +46,7 @@ class FacultyWelcome extends StatelessWidget {
                    height:20.0,
               ),
               Center(
-                child: Button(txt: 'Panding Request for NOC and LOR',
+                child: Button(txt: 'Pending Request for NOC and LOR',
                   pressed: (){
                   Navigator.pushNamed(context, null);
                 },)

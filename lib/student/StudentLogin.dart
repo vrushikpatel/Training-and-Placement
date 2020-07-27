@@ -96,7 +96,7 @@ class _StudentLoginPageState extends State<StudentLoginPage> {
                     Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "S Login",
+                        "Student Login",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 30,
