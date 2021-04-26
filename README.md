@@ -1,4 +1,4 @@
-# trainingandplacement
+# Training and Placement
 
 Training and Placement cell application for summer internship.
 
